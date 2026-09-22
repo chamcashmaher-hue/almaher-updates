@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحميل برنامج الماهر - التحديث الأخير</title>
+    
+    <!-- Google Fonts: Tajawal -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body { font-family: 'Tajawal', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col justify-between">
+
+    <!-- Navbar / Header -->
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center font-bold text-xl text-white shadow-lg shadow-blue-500/30">
+                    م
+                </div>
+                <span class="text-xl font-bold tracking-tight text-white">برنامج الماهر</span>
+            </div>
+            <!-- Dynamic Version Badge -->
+            <span id="version-badge" class="bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs px-3 py-1.5 rounded-full font-semibold animate-pulse">
+                جاري تحميل الإصدار...
+            </span>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="max-w-4xl mx-auto px-4 py-12 md:py-16">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4 leading-tight">
+                برنامج الماهر للمحاسبة والمستودعات
+            </h1>
+            <p class="text-slate-400 text-lg mb-8">
+                نظام دقيق وسهل لإدارة حساباتك وأعمالك، متوفر لنظامي الويندوز والأندرويد مع ميزة المزامنة السحابية والحماية المتقدمة.
+            </p>
+
+            <!-- Dynamic Download Buttons -->
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <!-- Windows Download Button -->
+                <a id="btn-windows" href="#" 
+                   class="w-full sm:w-auto px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-lg shadow-blue-600/30 transition flex items-center justify-center gap-3 group pointer-events-none opacity-50">
+                    <i class="fab fa-windows text-2xl group-hover:scale-110 transition-transform"></i>
+                    <div class="text-right">
+                        <div class="text-xs font-normal opacity-90">تحميل لنظام</div>
+                        <div class="text-base">الويندوز (Windows .exe)</div>
+                    </div>
+                </a>
+
+                <!-- Android Download Button -->
+                <a id="btn-android" href="#" 
+                   class="w-full sm:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg shadow-emerald-600/30 transition flex items-center justify-center gap-3 group pointer-events-none opacity-50">
+                    <i class="fab fa-android text-2xl group-hover:scale-110 transition-transform"></i>
+                    <div class="text-right">
+                        <div class="text-xs font-normal opacity-90">تحميل لنظام</div>
+                        <div class="text-base">الأندرويد (Android .apk)</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Release Notes Card -->
+        <div class="bg-slate-800/60 border border-slate-700/60 rounded-2xl p-6 md:p-8 backdrop-blur shadow-xl">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="p-2.5 bg-blue-500/10 text-blue-400 rounded-lg">
+                    <i class="fas fa-sparkles text-xl"></i>
+                </div>
+                <div>
+                    <h2 id="version-title" class="text-xl font-bold text-white">مميزات التحديث الأخير</h2>
+                    <p class="text-xs text-slate-400">سجل التحسينات والإضافات الجديدة في هذا التحديث</p>
+                </div>
+            </div>
+
+            <!-- Dynamic Container for Notes -->
+            <div id="notes-container" class="grid md:grid-cols-2 gap-3 text-slate-300">
+                <div class="col-span-2 text-center text-slate-500 py-4">جاري تحميل المميزات...</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800 py-6 text-center text-slate-500 text-sm">
+        <p>© 2026 برنامج الماهر. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <!-- JavaScript Script -->
+    <script>
+        // رابط ملف الـ JSON (يمكن وضعه بنفس مجلد الصفحة باسم update.json أو وضع رابط Raw من جيت هاب)
+        const JSON_URL = 'update.json'; 
+        // مثال لرابط جيت هاب المباشر:
+        // const JSON_URL = 'https://raw.githubusercontent.com/chamcashmaher-hue/almaher-updates/main/update.json';
+
+        async function fetchReleaseData() {
+            try {
+                const response = await fetch(JSON_URL);
+                if (!response.ok) throw new Error('فشل في جلب البيانات من السيرفر');
+                
+                const data = await response.json();
+
+                // 1. تحديث شارة الإصدار في الهيدر
+                const versionBadge = document.getElementById('version-badge');
+                versionBadge.textContent = `الإصدار v${data.name} (Build ${data.build})`;
+                versionBadge.classList.remove('animate-pulse');
+
+                // 2. تحديث عنوان قسم الملاحظات
+                document.getElementById('version-title').textContent = `مميزات الإصدار الجديد (${data.name})`;
+
+                // 3. تحديث وتفعيل زر الويندوز
+                const windowsBtn = document.getElementById('btn-windows');
+                windowsBtn.href = data.windows;
+                windowsBtn.classList.remove('pointer-events-none', 'opacity-50');
+
+                // 4. تحديث وتفعيل زر الأندرويد
+                const androidBtn = document.getElementById('btn-android');
+                androidBtn.href = data.android;
+                androidBtn.classList.remove('pointer-events-none', 'opacity-50');
+
+                // 5. تفكيك الملاحظات بناءً على أسطر السطر الجديد (\n) وعرضها
+                const notesContainer = document.getElementById('notes-container');
+                notesContainer.innerHTML = ''; // تفريغ رسالة "جاري التحميل"
+
+                const notesArray = data.notes.split('\n').filter(line => line.trim() !== '');
+
+                notesArray.forEach((note, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'flex items-start gap-3 bg-slate-900/50 p-3.5 rounded-xl border border-slate-800';
+                    
+                    // إذا كان عدد العناصر فردياً وكانت هذه النقطة الأخيرة، تتوسع على كامل العرض
+                    if (index === notesArray.length - 1 && notesArray.length % 2 !== 0) {
+                        item.classList.add('md:col-span-2');
+                    }
+
+                    item.innerHTML = `
+                        <i class="fas fa-check-circle text-emerald-400 mt-1"></i>
+                        <span>${note.trim()}</span>
+                    `;
+                    notesContainer.appendChild(item);
+                });
+
+            } catch (error) {
+                console.error('Error fetching update JSON:', error);
+                document.getElementById('version-badge').textContent = 'خطأ في جلب الإصدار';
+                document.getElementById('notes-container').innerHTML = `
+                    <div class="col-span-2 text-center text-red-400 py-4 bg-red-500/10 rounded-xl border border-red-500/20 text-sm">
+                        عذراً، تعذر تحميل بيانات التحديث تلقائياً.
+                    </div>
+                `;
+            }
+        }
+
+        // تشغيل الدالة فور تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', fetchReleaseData);
+    </script>
+</body>
+</html>
