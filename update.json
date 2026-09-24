@@ -1,7 +1,7 @@
 {
-  "name": "1.1.0",
-  "build": 4,
-  "notes": "اختيار عملة الأساس وتحويل الدفاتر إليها\nآلة حاسبة عائمة فوق كل الشاشات\nكشف حساب من تاريخ لتاريخ\nالبحث عن الفاتورة بمسح باركودها\nإصلاح حذف الأصناف من سلة الكاشير\nحماية سجل التدقيق من العبث\nزر إيقاف الرفع السحابي",
+  "name": "1.2.0",
+  "build": 7,
+  "notes": "وحدة الموظفين: رواتب شهرية وأجور يومية\nتسجيل السلف وخصمها من الراتب تلقائياً\nخصم الغياب والإجازات غير المدفوعة\nتحسينات على الترخيص والأمان",
   "android": "https://github.com/chamcashmaher-hue/almaher-updates/releases/latest/download/almaher.apk",
   "windows": "https://github.com/chamcashmaher-hue/almaher-updates/releases/latest/download/AlMaher_Setup.exe"
 }
