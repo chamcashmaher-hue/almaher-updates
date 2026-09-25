@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ماهر النوفلي | مطور برمجيات وأنظمة متكاملة</title>
+
+    <!-- Google Fonts: Tajawal & Fira Code -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* Dark Mode Variables (Default) */
+            --bg-main: #0b0f19;
+            --bg-nav: rgba(11, 15, 25, 0.85);
+            --bg-card: rgba(23, 31, 51, 0.7);
+            --bg-card-hover: rgba(30, 41, 69, 0.9);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(56, 189, 248, 0.3);
+            
+            --primary: #38bdf8;
+            --primary-gradient: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            --accent: #10b981;
+            
+            --whatsapp-color: #25D366;
+            --telegram-color: #229ED9;
+
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-dim: #64748b;
+        }
+
+        /* Light Mode Variables */
+        [data-theme="light"] {
+            --bg-main: #f1f5f9;
+            --bg-nav: rgba(241, 245, 249, 0.85);
+            --bg-card: rgba(255, 255, 255, 0.85);
+            --bg-card-hover: rgba(255, 255, 255, 1);
+            --border-color: rgba(0, 0, 0, 0.08);
+            --border-glow: rgba(37, 99, 235, 0.25);
+            
+            --primary: #2563eb;
+            --primary-gradient: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+            --accent: #059669;
+            
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --text-dim: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+            scroll-behavior: smooth;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navbar */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--bg-nav);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 0;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.4rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: transform 0.2s;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.08);
+            border-color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 70px 0 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .profile-avatar-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
+            background-color: var(--bg-card);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--accent);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .hero h1 span {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 28px;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: #ffffff;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+        }
+
+        /* Stats Bar */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 20px 0 60px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .stat-number {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Fira Code', monospace;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Sections General */
+        section {
+            padding: 30px 0;
+        }
+
+        .section-header {
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 4px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 28px;
+        }
+
+        /* Skills Matrix */
+        .skills-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-group h3 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-family: 'Fira Code', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tag i {
+            color: var(--primary);
+        }
+
+        /* Projects Showcase */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-glow);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .project-icon {
+            width: 44px;
+            height: 44px;
+            background: rgba(56, 189, 248, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .project-badge {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+        }
+
+        .project-title {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 18px;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-pill {
+            font-size: 0.75rem;
+            color: var(--primary);
+            background: rgba(56, 189, 248, 0.08);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            padding-right: 20px;
+            border-right: 2px solid var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 28px;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            right: -27px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+        }
+
+        .timeline-date {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-family: 'Fira Code', monospace;
+        }
+
+        .timeline-role {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .timeline-company {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+        }
+
+        /* Contact Buttons Section */
+        .contact-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .contact-buttons-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .contact-action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: #ffffff;
+            transition: transform 0.2s, box-shadow 0.2s;
+            direction: ltr; /* لترتيب الرقم بشكل صحيح */
+        }
+
+        .contact-action-btn.whatsapp {
+            background-color: var(--whatsapp-color);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .contact-action-btn.telegram {
+            background-color: var(--telegram-color);
+            box-shadow: 0 4px 15px rgba(34, 158, 217, 0.3);
+        }
+
+        .contact-action-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 24px 0;
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+            .hero p { margin: 0 auto 28px; }
+            .cta-group { justify-content: center; }
+            .nav-links { display: none; }
+            .profile-avatar { width: 140px; height: 140px; }
+            .contact-buttons-wrapper { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <nav>
+        <div class="container nav-content">
+            <div class="logo">&lt;ماهر النوفلي /&gt;</div>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="#about">نبذة عني</a></li>
+                    <li><a href="#skills">المهارات</a></li>
+                    <li><a href="#projects">المشاريع</a></li>
+                    <li><a href="#experience">الخبرات</a></li>
+                    <li><a href="#contact">التواصل</a></li>
+                </ul>
+                <!-- Theme Switcher Button -->
+                <button class="theme-toggle" id="themeToggle" title="تغيير المظهر">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <!-- Hero Section -->
+        <header class="hero">
+            <div class="hero-text">
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    متاح للمشاريع والعمل الحر
+                </div>
+                <h1>مرحباً، أنا <span>ماهر النوفلي</span></h1>
+                <p>مطور برمجيات متنافس في بناء تطبيقات الهواتف الذكية (Android)، تطبيقات سطح المكتب (Windows)، والأنظمة السحابية والويب. أركز على تطوير أنظمة المحاسبة والمستودعات عالية الاستقرار.</p>
+                
+                <div class="cta-group">
+                    <a href="#contact" class="btn-primary">
+                        <i class="fa-solid fa-paper-plane"></i> تواصل معي
+                    </a>
+                    <a href="#projects" class="btn-secondary">
+                        <i class="fa-solid fa-code"></i> استعرض الأعمال
+                    </a>
+                </div>
+            </div>
+
+            <!-- Profile Picture Section -->
+            <div class="profile-avatar-wrapper">
+                <!-- استبدل "profile.jpg" بمسار صورتك الشخصية -->
+                <img src="profile.jpg" alt="ماهر النوفلي" class="profile-avatar" onerror="this.src='https://ui-avatars.com/api/?name=%D9%85%D8%A7%D9%87%D8%B1+%D8%A7%D9%84%D9%86%D9%88%D9%81%D9%84%D9%8A&background=38bdf8&color=fff&size=180'">
+            </div>
+        </header>
+
+        <!-- Stats Bar -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">Flutter & Dart</div>
+                <div class="stat-label">تطبيقات Android & Windows</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">Full-Stack</div>
+                <div class="stat-label">Python / Django & PHP / Laravel</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">الماهر للمحاسبة</div>
+                <div class="stat-label">حلول Offline-First متكاملة</div>
+            </div>
+        </div>
+
+        <!-- About Me Section -->
+        <section id="about">
+            <div class="card">
+                <div class="section-header">
+                    <h2 class="section-title"><i class="fa-solid fa-user-gear"></i> نبذة عني</h2>
+                </div>
+                <p style="color: var(--text-muted); font-size: 1.05rem;">
+                    أجمع بين الدقة والتفكير الهندسي الأكاديمي والخبرة البرمجية العمليّة. متنافس في تطوير تطبيقات متعددة المنصات باستخدام <strong>Flutter</strong> لبناء واجهات سلسة وعالية الكفاءة، مع الاعتماد على أطر عمل خلفية قوية مثل <strong>Django</strong> و <strong>Laravel</strong> لبناء معمارية البرمجيات، إدارة توثيق المستخدمين، وربط قواعد البيانات مع حلول السحابة.
+                </p>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-layer-group"></i> المهارات والتقنيات</h2>
+                <p class="section-subtitle">الأدوات وتقنيات التطوير التي أستخدمها لبناء البرمجيات</p>
+            </div>
+
+            <div class="skills-wrapper">
+                <div class="card skill-group">
+                    <h3><i class="fa-solid fa-mobile-screen-button"></i> تطوير التطبيقات</h3>
+                    <div class="skill-tags">
+                        <span class="tag"><i class="fa-brands fa-flutter"></i> Flutter</span>
+                        <span class="tag">Dart</span>
+                        <span class="tag"><i class="fa-brands fa-android"></i> Android Native</span>
+                        <span class="tag"><i class="fa-brands fa-windows"></i> Windows Desktop</span>
+                    </div>
+                </div>
+
+                <div class="card skill-group">
+                    <h3><i class="fa-solid fa-server"></i> التطوير الخلفي والويب</h3>
+                    <div class="skill-tags">
+                        <span class="tag"><i class="fa-brands fa-python"></i> Python</span>
+                        <span class="tag">Django</span>
+                        <span class="tag"><i class="fa-brands fa-php"></i> PHP</span>
+                        <span class="tag"><i class="fa-brands fa-laravel"></i> Laravel</span>
+                        <span class="tag">RESTful APIs</span>
+                    </div>
+                </div>
+
+                <div class="card skill-group">
+                    <h3><i class="fa-solid fa-database"></i> قواعد البيانات والسحابة</h3>
+                    <div class="skill-tags">
+                        <span class="tag">MySQL</span>
+                        <span class="tag">SQL Server</span>
+                        <span class="tag">Backblaze B2</span>
+                        <span class="tag">Google Drive API</span>
+                        <span class="tag"><i class="fa-brands fa-git-alt"></i> Git / GitHub</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-diagram-project"></i> المشاريع البارزة</h2>
+                <p class="section-subtitle">نماذج من الأنظمة والتطبيقات التي قمت بتطويرها</p>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div>
+                        <div class="project-header">
+                            <div class="project-icon"><i class="fa-solid fa-calculator"></i></div>
+                            <span class="project-badge">Cross-Platform</span>
+                        </div>
+                        <h3 class="project-title">الماهر في المحاسبة والمستودعات</h3>
+                        <p class="project-desc">تطبيق محاسبة ومستودعات يعتمد استراتيجية (Offline-First) للعمل دون إنترنت، مع ميزة النسخ الاحتياطي التلقائي للسحابة عبر Backblaze B2.</p>
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-pill">Flutter</span>
+                        <span class="tech-pill">SQLite</span>
+                        <span class="tech-pill">Backblaze API</span>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div>
+                        <div class="project-header">
+                            <div class="project-icon"><i class="fa-brands fa-python"></i></div>
+                            <span class="project-badge">Web Application</span>
+                        </div>
+                        <h3 class="project-title">منصة إدارة الحسابات والتوثيق</h3>
+                        <p class="project-desc">نظام ويب متكامل مدمج بنظام توثيق متقدم عبر البريد الإلكتروني، إدارة ملفات المستخدمين، وحماية بيانات الجلسات.</p>
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-pill">Python</span>
+                        <span class="tech-pill">Django</span>
+                        <span class="tech-pill">MySQL</span>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div>
+                        <div class="project-header">
+                            <div class="project-icon"><i class="fa-brands fa-laravel"></i></div>
+                            <span class="project-badge">Web Portal</span>
+                        </div>
+                        <h3 class="project-title">منصة تفاعلية بالسيرة الذاتية</h3>
+                        <p class="project-desc">تطبيق ويب يعتمد حزمة Breeze مع توجيه ذكي وسريع للمستخدمين بعد التوثيق لمعاينة الملفات والمستندات المهنية.</p>
+                    </div>
+                    <div class="project-tech">
+                        <span class="tech-pill">PHP</span>
+                        <span class="tech-pill">Laravel</span>
+                        <span class="tech-pill">Breeze</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience & Education -->
+        <section id="experience">
+            <div class="section-header">
+                <h2 class="section-title"><i class="fa-solid fa-graduation-cap"></i> التعليم والخبرة العمليّة</h2>
+            </div>
+
+            <div class="card">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">مستمر</div>
+                        <div class="timeline-role">مطور تطبيقات وبوابات رقمية (Full-Stack Developer)</div>
+                        <div class="timeline-company">تطوير برمجيات ومشاريع مستقلة</div>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">تطوير تطبيقات أندرويد ووندوز، بناء قواعد بيانات تجارية، وإدماج أنظمة محاسبة مستقرة للمنشآت والمحلات.</p>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-date">مؤهل أكاديمي</div>
+                        <div class="timeline-role">دبلوم المعهد المتوسط الهندسي</div>
+                        <div class="timeline-company">تخصص هندسة مدنية</div>
+                        <p style="color: var(--text-muted); font-size: 0.95rem;">خلفية علمية وهندسية تسهم في التحليل المنطقي وتنظيم الهياكل البرمجية بشكل دقيق.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Updated Contact Section -->
+        <section id="contact">
+            <div class="contact-card">
+                <h2 style="font-size: 1.8rem; margin-bottom: 12px;">هل لديك مشروع أو فكرة تريد تنفيذها؟</h2>
+                <p style="color: var(--text-muted); margin-bottom: 24px;">أنا جاهز لمساعدتك في تحويل أفكارك إلى تطبيقات ومواقع احترافية وسريعة. يمكنك التواصل معي مباشرة عبر:</p>
+                
+                <div class="contact-buttons-wrapper">
+                    <!-- WhatsApp Contact -->
+                    <a href="https://wa.me/963992984536" target="_blank" class="contact-action-btn whatsapp">
+                        <i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i>
+                        <span>+963 992 984 536</span>
+                    </a>
+
+                    <!-- Telegram Contact -->
+                    <a href="https://t.me/+963940890911" target="_blank" class="contact-action-btn telegram">
+                        <i class="fa-brands fa-telegram" style="font-size: 1.4rem;"></i>
+                        <span>+963 940 890 911</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>جميع الحقوق محفوظة &copy; 2026 - تم التطوير بواسطة ماهر النوفلي</p>
+        </div>
+    </footer>
+
+    <!-- Theme Toggle JavaScript Logic -->
+    <script>
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeIcon = themeToggleBtn.querySelector('i');
+
+        // Check stored theme or preferred settings
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            if (savedTheme === 'light') {
+                themeIcon.className = 'fa-solid fa-sun';
+            }
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            let newTheme = 'dark';
+
+            if (currentTheme !== 'light') {
+                newTheme = 'light';
+                document.documentElement.setAttribute('data-theme', 'light');
+                themeIcon.className = 'fa-solid fa-sun';
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+                themeIcon.className = 'fa-solid fa-moon';
+            }
+
+            localStorage.setItem('theme', newTheme);
+        });
+    </script>
+</body>
+</html>
